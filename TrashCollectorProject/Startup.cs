@@ -10,5 +10,7 @@ namespace TrashCollectorProject
         {
             ConfigureAuth(app);
         }
+
+        
     }
 }
