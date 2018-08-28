@@ -208,6 +208,14 @@
     <Compile Include="Migrations\201808281522075_PickUpEmployeeCustomerTables.Designer.cs">
       <DependentUpon>201808281522075_PickUpEmployeeCustomerTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808281643448_AddApplicationUserToEmployeeTable.cs" />
+    <Compile Include="Migrations\201808281643448_AddApplicationUserToEmployeeTable.Designer.cs">
+      <DependentUpon>201808281643448_AddApplicationUserToEmployeeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808281646218_AddApplicationUserToCustomerTable.cs" />
+    <Compile Include="Migrations\201808281646218_AddApplicationUserToCustomerTable.Designer.cs">
+      <DependentUpon>201808281646218_AddApplicationUserToCustomerTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -300,6 +308,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808281522075_PickUpEmployeeCustomerTables.resx">
       <DependentUpon>201808281522075_PickUpEmployeeCustomerTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808281643448_AddApplicationUserToEmployeeTable.resx">
+      <DependentUpon>201808281643448_AddApplicationUserToEmployeeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808281646218_AddApplicationUserToCustomerTable.resx">
+      <DependentUpon>201808281646218_AddApplicationUserToCustomerTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
