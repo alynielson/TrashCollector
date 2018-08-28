@@ -156,6 +156,7 @@ namespace TrashCollectorProject.Controllers
                 if (result.Succeeded)
                 {
                     var roleresult = UserManager.AddToRole(user.Id, "Customer");
+                    CreateNewCustomer(user);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -164,6 +165,22 @@ namespace TrashCollectorProject.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private void CreateNewCustomer(ApplicationUser user)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Customer customer = new Customer() { ApplicationUserId = user.Id };
+            db.Customers.Add(customer);
+            db.SaveChanges();
+        }
+
+        private void CreateNewEmployee(ApplicationUser user)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Employee employee = new Employee() { ApplicationUserId = user.Id };
+            db.Employees.Add(employee);
+            db.SaveChanges();
         }
 
         //

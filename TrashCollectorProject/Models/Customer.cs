@@ -20,8 +20,8 @@ namespace TrashCollectorProject.Models
         
         public DayOfWeek PickupDay { get; set; }
         
-        public DateTime CustomStartDate { get; set; }
-        public DateTime CustomEndDate { get; set; }
+        public DateTime? CustomStartDate { get; set; }
+        public DateTime? CustomEndDate { get; set; }
         public double MoneyOwed { get; set; }
 
 
