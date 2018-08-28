@@ -20,5 +20,9 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 272px;
+}
+
+btn btn-default dropdown-toggle {
+    max-width: 272px;
 }
