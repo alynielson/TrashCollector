@@ -39,6 +39,8 @@ namespace TrashCollectorProject.Controllers
                     ApplicationUserId = id,
                     Name = collection["Name"],
                     Address = collection["Address"],
+                    City = collection["City"],
+                    State = collection["State"],
                     PickupDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), collection["PickupDay"], true),
                     ZipCode = Convert.ToInt32(collection["ZipCode"]),
 

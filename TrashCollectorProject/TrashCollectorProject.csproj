@@ -222,6 +222,10 @@
     <Compile Include="Migrations\201808281929318_UpdateDateTimeOnCustomer.Designer.cs">
       <DependentUpon>201808281929318_UpdateDateTimeOnCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808291301208_AddCityStateToCustomer.cs" />
+    <Compile Include="Migrations\201808291301208_AddCityStateToCustomer.Designer.cs">
+      <DependentUpon>201808291301208_AddCityStateToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -325,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808281929318_UpdateDateTimeOnCustomer.resx">
       <DependentUpon>201808281929318_UpdateDateTimeOnCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808291301208_AddCityStateToCustomer.resx">
+      <DependentUpon>201808291301208_AddCityStateToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
