@@ -10,9 +10,11 @@ namespace TrashCollectorProject.Controllers
     public class CustomerController : Controller
     {
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var customer = db.Customers.Find(id);
+            return View(customer);
         }
 
         // GET: Customer/Details/5
@@ -46,7 +48,8 @@ namespace TrashCollectorProject.Controllers
                 };
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Customer");
+                var custId = db.Customers.Single(a => a.ApplicationUserId == id).Id;
+                return RedirectToAction("Index", "Customer", new {id = custId});
             }
             catch
             {
@@ -96,6 +99,13 @@ namespace TrashCollectorProject.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult ChangePickupDay(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var customer = db.Customers.Find(id);
+            return View(customer);
         }
     }
 }
