@@ -43,11 +43,10 @@ namespace TrashCollectorProject.Controllers
                     State = collection["State"],
                     PickupDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), collection["PickupDay"], true),
                     ZipCode = Convert.ToInt32(collection["ZipCode"]),
-
                 };
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Customer");
             }
             catch
             {
