@@ -16,6 +16,9 @@ namespace TrashCollectorProject.Models
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public string Address { get; set; }
+
+        public string City { get; set; }
+        public string State { get; set; }
         public int ZipCode { get; set; }
         
         public DayOfWeek PickupDay { get; set; }
