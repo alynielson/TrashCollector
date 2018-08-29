@@ -1,7 +1,53 @@
-﻿
+﻿@model TrashCollectorProject.Models.Customer
 @{
     ViewBag.Title = "Change Pickup Day";
 }
 
 <h2>Change Pickup Day</h2>
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Current Pickup Day
+            </label>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PickupDay)
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Change Pickup Day to:
+            </label>
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.PickupDay, new SelectList(Enum.GetValues(typeof(DayOfWeek))), "Select preferred trash collection day", new { @class = "btn btn-default dropdown-toggle" })
+                @Html.ValidationMessageFor(model => model.PickupDay, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
