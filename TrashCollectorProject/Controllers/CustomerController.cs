@@ -4,6 +4,7 @@ using TrashCollectorProject.Models;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace TrashCollectorProject.Controllers
 {
@@ -106,6 +107,15 @@ namespace TrashCollectorProject.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             var customer = db.Customers.Find(id);
             return View(customer);
+        }
+        [HttpPost]
+        public ActionResult ChangePickupDay(Customer customer)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var customerInDB = db.Customers.Find(customer.Id);
+            customerInDB.PickupDay = customer.PickupDay;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Customer", new { id = customer.Id });
         }
     }
 }
