@@ -1,0 +1,44 @@
+﻿@model TrashCollectorProject.Models.Customer
+@{
+    ViewBag.Title = "Request";
+}
+
+<h2>Request Pickup</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <hr />
+    <h4>Got too much trash? Select a date and we will take it off your hands.</h4>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                One-time pickup date:
+            </label>
+            <div class="col-md-10">
+                
+
+               
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to Main Page", "Index", "Customer", new { id = Model.Id }, null)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+}

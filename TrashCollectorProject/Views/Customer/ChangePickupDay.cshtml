@@ -9,7 +9,6 @@
 {
     @Html.AntiForgeryToken()
 
-
     <hr />
     <div class="form-horizontal">
         <div class="form-group">
@@ -45,7 +44,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Main Page", "Index", "Customer")
+    @Html.ActionLink("Back to Main Page", "Index", "Customer", new { id = Model.Id },null)
 </div>
 
 @section Scripts {
