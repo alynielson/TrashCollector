@@ -118,11 +118,7 @@ namespace TrashCollectorProject.Controllers
             return RedirectToAction("Index", "Customer", new { id = customer.Id });
         }
 
-        public ActionResult RequestPickup(int id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var customer = db.Customers.Find(id);
-            return View(customer);
-        }
+       
+
     }
 }

@@ -1,4 +1,5 @@
-﻿@model TrashCollectorProject.Models.Customer
+﻿@model TrashCollectorProject.Models.Pickup
+
 @{
     ViewBag.Title = "Request";
 }
@@ -8,8 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-
+    
     <hr />
     <h4>Got too much trash? Select a date and we will take it off your hands.</h4>
     <div class="form-horizontal">
@@ -18,9 +18,8 @@
                 One-time pickup date:
             </label>
             <div class="col-md-10">
-                
-
-               
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @id = "customdatepicker" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -35,10 +34,23 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Main Page", "Index", "Customer", new { id = Model.Id }, null)
+    @Html.ActionLink("Back to Main Page", "Index", "Customer", new { id = Model.CustomerId }, null)
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#customdatepicker").datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+        });
+    </script>
 }
+
