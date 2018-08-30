@@ -11,7 +11,7 @@ namespace TrashCollectorProject.Models
     {
         [Key]
         public int Id { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
         public bool Completed { get; set; }
         [ForeignKey("Customer")]

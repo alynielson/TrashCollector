@@ -91,6 +91,7 @@ namespace TrashCollectorProject.Controllers
         {
             Pickup tempPickup = new Pickup();
             tempPickup.CustomerId = id;
+            tempPickup.Date = DateTime.Now;
             return View(tempPickup);
         }
     }
