@@ -27,6 +27,8 @@ namespace TrashCollectorProject.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? CustomEndDate { get; set; }
         public double MoneyOwed { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime? DateScheduledThrough { get; set; }
 
 
     }
