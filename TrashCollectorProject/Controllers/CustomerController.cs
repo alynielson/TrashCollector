@@ -49,12 +49,57 @@ namespace TrashCollectorProject.Controllers
                 };
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                var custId = db.Customers.Single(a => a.ApplicationUserId == id).Id;
-                return RedirectToAction("Index", "Customer", new {id = custId});
+                ScheduleNormalPickups(customer,db);
+                var newCustomer = db.Customers.Single(a => a.ApplicationUserId == id);
+                return RedirectToAction("Index", "Customer", new {id = newCustomer.Id});
             }
             catch
             {
                 return View();
+            }
+        }
+
+        private DateTime FindFirstDayToSchedule(Customer customer)
+        {
+            DateTime dayToSchedule = DateTime.Now;
+            while (dayToSchedule.DayOfWeek != customer.PickupDay)
+            {
+                dayToSchedule = dayToSchedule.AddDays(1);
+            }
+            return dayToSchedule;
+        }
+
+        private void CreateNewPickup(Customer customer, ApplicationDbContext db, DateTime pickupDate)
+        {
+            Pickup pickup = new Pickup();
+            pickup.Date = pickupDate;
+            pickup.CustomerId = customer.Id;
+            var customerZip = db.Customers.Find(pickup.CustomerId).ZipCode;
+            var employeeId = db.Employees.SingleOrDefault(e => e.ZipCode == customerZip).Id;
+            pickup.EmployeeId = employeeId;
+            db.Pickups.Add(pickup);
+            db.SaveChanges();
+        }
+
+        private void ScheduleNormalPickups(Customer customer, ApplicationDbContext db)
+        {
+            if (customer.DateScheduledThrough == null)
+            {
+                DateTime pickupDate = FindFirstDayToSchedule(customer);
+                int pickupsToSchedule = 4;
+                int pickupsScheduled = 0;
+                while (pickupsScheduled < pickupsToSchedule)
+                {
+                    CreateNewPickup(customer, db, pickupDate);
+                    pickupDate = pickupDate.AddDays(7);
+                    pickupsScheduled++;
+                }
+                customer.DateScheduledThrough = pickupDate;
+                db.SaveChanges();
+            }
+            else
+            {
+
             }
         }
 
