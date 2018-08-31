@@ -161,7 +161,7 @@ namespace TrashCollectorProject.Controllers
             customerInDB.PickupDay = customer.PickupDay;
             if (customerInDB.DateScheduledThrough > DateTime.Now.Date)
             {
-                var pickupsToDelete = db.Pickups.Where(p => p.CustomerId == customer.Id && p.Date > DateTime.Now.Date && p.Completed == false && p.IsOneTime == false).ToList();
+                var pickupsToDelete = db.Pickups.Where(p => p.CustomerId == customer.Id && p.Date > DateTime.Now && p.Completed == false && p.IsOneTime == false).ToList();
                 foreach (Pickup pickup in pickupsToDelete)
                 {
                     db.Pickups.Remove(pickup);
