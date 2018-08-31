@@ -1,0 +1,74 @@
+﻿@model TrashCollectorProject.Models.Customer
+@{
+    ViewBag.Title = "Suspend";
+}
+
+<h2>Suspend Pickups</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    <h4>Leaving town? Let us know when and we won't drop by (or charge you).</h4>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Stop pickups on:
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomStartDate, new { htmlAttributes = new { @class = "form-control", @id = "customdatepicker" } })
+                @Html.ValidationMessageFor(model => model.CustomStartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Restart pickups on:
+            </label>
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.CustomEndDate, new { htmlAttributes = new { @class = "form-control", @id = "customdatepicker2" } })
+                @Html.ValidationMessageFor(model => model.CustomEndDate, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to Main Page", "Index", "Customer", new { id = Model.Id }, null)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#customdatepicker").datepicker({
+                dateFormat: "mm/dd/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-0:+2"
+            });
+        });
+        $(document).ready(function () {
+            $("#customdatepicker2").datepicker({
+                dateFormat: "mm/dd/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-0:+2"
+            });
+        });
+    </script>
+}

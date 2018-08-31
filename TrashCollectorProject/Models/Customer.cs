@@ -22,8 +22,9 @@ namespace TrashCollectorProject.Models
         public int ZipCode { get; set; }
         
         public DayOfWeek PickupDay { get; set; }
-        
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? CustomStartDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? CustomEndDate { get; set; }
         public double MoneyOwed { get; set; }
 

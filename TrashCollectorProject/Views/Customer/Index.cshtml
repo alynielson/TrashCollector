@@ -11,8 +11,8 @@
 
     @Html.ActionLink("View or change weekly pickup day", "ChangePickupDay", "Customer", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })
     @Html.ActionLink("Request an extra one-time pickup", "RequestNew", "Pickup", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })
-    <button class="btn btn-default btn-block">View monthly charges to-date</button>
-    <button class="btn btn-default btn-block">Temporarily suspend pickups</button>
+    @Html.ActionLink("Temporarily suspend pickups", "SuspendPickups", "Customer", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })
+    <button class="btn btn-default btn-block">View this month's charges to-date</button>
     <button class="btn btn-default btn-block">View all details</button>
 
 </div>
