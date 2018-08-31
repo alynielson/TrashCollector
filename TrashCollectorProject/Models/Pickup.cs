@@ -22,6 +22,8 @@ namespace TrashCollectorProject.Models
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
+        public bool IsOneTime { get; set; }
+
 
     }
 }

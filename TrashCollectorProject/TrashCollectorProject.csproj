@@ -235,6 +235,10 @@
     <Compile Include="Migrations\201808311440112_CustomerDateScheduledPropert.Designer.cs">
       <DependentUpon>201808311440112_CustomerDateScheduledPropert.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808311809203_PropertyForCustomPickups.cs" />
+    <Compile Include="Migrations\201808311809203_PropertyForCustomPickups.Designer.cs">
+      <DependentUpon>201808311809203_PropertyForCustomPickups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -395,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808311440112_CustomerDateScheduledPropert.resx">
       <DependentUpon>201808311440112_CustomerDateScheduledPropert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808311809203_PropertyForCustomPickups.resx">
+      <DependentUpon>201808311809203_PropertyForCustomPickups.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

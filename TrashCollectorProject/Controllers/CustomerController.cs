@@ -159,6 +159,14 @@ namespace TrashCollectorProject.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             var customerInDB = db.Customers.Find(customer.Id);
             customerInDB.PickupDay = customer.PickupDay;
+            if (customerInDB.DateScheduledThrough >= DateTime.Now.Date)
+            {
+                var pickupsToDelete = db.Pickups.Where(p => p.CustomerId == customer.Id && p.Date >= DateTime.Now.Date && p.Completed == false && p.IsOneTime == false).ToList();
+                foreach (Pickup pickup in pickupsToDelete)
+                {
+                    db.Pickups.Remove(pickup);
+                }
+            }
             db.SaveChanges();
             return RedirectToAction("Index", "Customer", new { id = customer.Id });
         }
