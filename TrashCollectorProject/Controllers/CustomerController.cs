@@ -59,9 +59,8 @@ namespace TrashCollectorProject.Controllers
             }
         }
 
-        private DateTime FindFirstDayToSchedule(Customer customer)
+        private DateTime FindFirstDayToSchedule(Customer customer, DateTime dayToSchedule)
         {
-            DateTime dayToSchedule = DateTime.Now;
             while (dayToSchedule.DayOfWeek != customer.PickupDay)
             {
                 dayToSchedule = dayToSchedule.AddDays(1);
@@ -83,24 +82,25 @@ namespace TrashCollectorProject.Controllers
 
         private void ScheduleNormalPickups(Customer customer, ApplicationDbContext db)
         {
+            DateTime pickupDate;
             if (customer.DateScheduledThrough == null)
             {
-                DateTime pickupDate = FindFirstDayToSchedule(customer);
-                int pickupsToSchedule = 4;
-                int pickupsScheduled = 0;
-                while (pickupsScheduled < pickupsToSchedule)
-                {
-                    CreateNewPickup(customer, db, pickupDate);
-                    pickupDate = pickupDate.AddDays(7);
-                    pickupsScheduled++;
-                }
-                customer.DateScheduledThrough = pickupDate;
-                db.SaveChanges();
+                pickupDate = FindFirstDayToSchedule(customer, DateTime.Now);
             }
             else
             {
-
+                pickupDate = FindFirstDayToSchedule(customer, (DateTime)customer.DateScheduledThrough);
             }
+            int pickupsToSchedule = 4;
+            int pickupsScheduled = 0;
+            while (pickupsScheduled < pickupsToSchedule)
+            {
+                CreateNewPickup(customer, db, pickupDate);
+                pickupDate = pickupDate.AddDays(7);
+                pickupsScheduled++;
+            }
+            customer.DateScheduledThrough = pickupDate;
+            db.SaveChanges();
         }
 
         // GET: Customer/Edit/5
@@ -159,14 +159,16 @@ namespace TrashCollectorProject.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             var customerInDB = db.Customers.Find(customer.Id);
             customerInDB.PickupDay = customer.PickupDay;
-            if (customerInDB.DateScheduledThrough >= DateTime.Now.Date)
+            if (customerInDB.DateScheduledThrough > DateTime.Now.Date)
             {
-                var pickupsToDelete = db.Pickups.Where(p => p.CustomerId == customer.Id && p.Date >= DateTime.Now.Date && p.Completed == false && p.IsOneTime == false).ToList();
+                var pickupsToDelete = db.Pickups.Where(p => p.CustomerId == customer.Id && p.Date > DateTime.Now.Date && p.Completed == false && p.IsOneTime == false).ToList();
                 foreach (Pickup pickup in pickupsToDelete)
                 {
                     db.Pickups.Remove(pickup);
                 }
+                customerInDB.DateScheduledThrough = DateTime.Now;
             }
+            ScheduleNormalPickups(customerInDB, db);
             db.SaveChanges();
             return RedirectToAction("Index", "Customer", new { id = customer.Id });
         }
@@ -191,6 +193,7 @@ namespace TrashCollectorProject.Controllers
                 {
                     db.Pickups.Remove(pickup);
                 }
+                customerInDB.DateScheduledThrough = customerInDB.CustomEndDate;
             }
             db.SaveChanges();
             return RedirectToAction("Index", "Customer", new { id = customer.Id });
