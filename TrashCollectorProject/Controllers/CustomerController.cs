@@ -176,6 +176,14 @@ namespace TrashCollectorProject.Controllers
             var customerInDB = db.Customers.Find(customer.Id);
             customerInDB.CustomStartDate = customer.CustomStartDate;
             customerInDB.CustomEndDate = customer.CustomEndDate;
+            if (customerInDB.DateScheduledThrough >= customerInDB.CustomStartDate)
+            {
+                var pickupsToDelete = db.Pickups.Where(p => p.CustomerId == customer.Id && p.Date >= customer.CustomStartDate && p.Date <= customer.CustomEndDate && p.Completed == false).ToList();
+                foreach (Pickup pickup in pickupsToDelete)
+                {
+                    db.Pickups.Remove(pickup);
+                }
+            }
             db.SaveChanges();
             return RedirectToAction("Index", "Customer", new { id = customer.Id });
         }
