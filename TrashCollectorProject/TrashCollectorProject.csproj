@@ -347,10 +347,11 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\ChangePickupDay.cshtml" />
     <Content Include="Views\Pickup\RequestNew.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Employee\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

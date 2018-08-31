@@ -86,13 +86,28 @@ namespace TrashCollectorProject.Controllers
                 return View();
             }
         }
-
+        [HttpGet]
         public ActionResult RequestNew(int id)
         {
             Pickup tempPickup = new Pickup();
             tempPickup.CustomerId = id;
             tempPickup.Date = DateTime.Now;
             return View(tempPickup);
+        }
+        [HttpPost]
+        public ActionResult RequestNew(Pickup pickup, int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            pickup.Completed = false;
+            pickup.CustomerId = id;
+            
+            var customerZip = db.Customers.Find(pickup.CustomerId).ZipCode;
+            var employeeId = db.Employees.SingleOrDefault(e => e.ZipCode == customerZip).Id;
+            
+            pickup.EmployeeId = employeeId;
+            db.Pickups.Add(pickup);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Customer", new { id = pickup.CustomerId });
         }
     }
 }

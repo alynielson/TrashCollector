@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TrashCollectorProject.Models;
 
 namespace TrashCollectorProject.Controllers
 {
@@ -28,13 +29,21 @@ namespace TrashCollectorProject.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(FormCollection collection, string id)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                ApplicationDbContext db = new ApplicationDbContext();
+                Employee employee = new Employee()
+                {
+                    ApplicationUserId = id,
+                    Name = collection["Name"],
+                    ZipCode = Convert.ToInt32(collection["ZipCode"]),
+                };
+                db.Employees.Add(employee);
+                db.SaveChanges();
+                var empId = db.Employees.Single(e => e.ApplicationUserId == id).Id;
+                return RedirectToAction("Index", "Employee", new { id = empId });
             }
             catch
             {
