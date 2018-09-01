@@ -10,9 +10,15 @@ namespace TrashCollectorProject.Controllers
     public class EmployeeController : Controller
     {
         // GET: Employee
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            DateTime today = DateTime.Now.Date;
+            DateTime tomorrow = DateTime.Now.Date.AddDays(1);
+            var pickupsToday = db.Pickups.Where(p => p.EmployeeId == id && p.Date >= today && p.Date <= tomorrow).ToList();
+            var anon = pickupsToday.Join(db.Customers, p => p.CustomerId, c => c.Id, (p,c) => new { p,c});
+            var pleaseWork = anon.Select(a => new CustomerPickupViewModel { Pickup = a.p, Customer = a.c}).ToList();
+            return View(pleaseWork);
         }
 
         // GET: Employee/Details/5

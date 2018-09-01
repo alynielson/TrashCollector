@@ -471,7 +471,8 @@ namespace TrashCollectorProject.Controllers
             }
             else if (UserManager.IsInRole(user.Id, "Employee"))
             {
-                return RedirectToAction("Index", "Home");
+                var employee = db.Employees.Single(e => e.ApplicationUserId == user.Id);
+                return RedirectToAction("Index", "Employee", new { id = employee.Id });
             }
             else
             {

@@ -1,14 +1,26 @@
-﻿
+﻿@model List<TrashCollectorProject.Models.CustomerPickupViewModel>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Employee Home</h2>
 <div>
-    <h4>test</h4>
+    <h4>Your pickups</h4>
     <hr />
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Name)
+            </td>
+            <td>
+               
+            </td>
+        </tr>
+    }
 
-   
+
+
 
 </div>
 <p>

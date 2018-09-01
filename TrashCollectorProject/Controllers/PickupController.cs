@@ -100,14 +100,18 @@ namespace TrashCollectorProject.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             pickup.Completed = false;
             pickup.CustomerId = id;
+           
             pickup.IsOneTime = true;
             var customerZip = db.Customers.Find(pickup.CustomerId).ZipCode;
             var employeeId = db.Employees.SingleOrDefault(e => e.ZipCode == customerZip).Id;
             
             pickup.EmployeeId = employeeId;
+          
             db.Pickups.Add(pickup);
             db.SaveChanges();
             return RedirectToAction("Index", "Customer", new { id = pickup.CustomerId });
         }
+
+        
     }
 }
