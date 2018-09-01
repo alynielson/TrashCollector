@@ -4,9 +4,20 @@
 }
 
 <h2>Employee Home</h2>
-<div>
+<table class="table">
     <h4>Your pickups</h4>
     <hr />
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Completed?
+        </th>
+    </tr>
     @foreach (var item in Model)
     {
         <tr>
@@ -14,15 +25,23 @@
                 @Html.DisplayFor(modelItem => item.Customer.Name)
             </td>
             <td>
-               
+                @Html.DisplayFor(modelItem => item.Customer.Address),
+                @Html.DisplayFor(modelItem => item.Customer.City),
+                @Html.DisplayFor(modelItem => item.Customer.State)
+                @Html.DisplayFor(modelItem => item.Customer.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pickup.Completed)
             </td>
         </tr>
+
     }
+</table>
 
 
 
 
-</div>
+
 <p>
 
 
