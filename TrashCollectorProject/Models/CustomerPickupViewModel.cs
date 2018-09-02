@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,9 @@ namespace TrashCollectorProject.Models
     {
         public List<CustomerPickup> CustomerPickup { get; set; }
         public string DayChosen { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime DateViewing { get; set; }
+        public int EmployeeId { get; set; }
        
     }
 }

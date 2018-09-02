@@ -4,13 +4,27 @@
 }
 
 <h2>Employee Home</h2>
+<h4>View all your scheduled pickups for any day in the next week.</h4>
 <hr />
-<div class="control-label col-md-2">View your pickups for:</div>
-@using (Html.BeginForm())
-{
-    @Html.DropDownListFor(model => model.DayChosen,new SelectList(Enum.GetValues(typeof(DayOfWeek))), "Today", new { @class = "btn btn-default dropdown-toggle" })
-    <input type="submit" value="Filter" />
-}
+<div class="row">
+    <div class="col-md-8">
+        <div class="control-label">View your pickups for:</div>
+        @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
+        {
+            @Html.DropDownListFor(model => model.DayChosen, new SelectList(Enum.GetValues(typeof(DayOfWeek))), "Today", new { @class = "btn btn-default dropdown-toggle" })
+            <input type="submit" value="Filter" />
+        }
+
+    </div>
+
+
+    <div class="col-md-4">
+        Date Viewing:
+        @Html.DisplayFor(model => model.DateViewing)
+    </div>
+
+</div>
+
 <hr />
 <table class="table">
     <tr>
@@ -21,10 +35,10 @@
             Address
         </th>
         <th>
-            Date
+            Status
         </th>
         <th>
-            Completed?
+
         </th>
     </tr>
     @foreach (var item in Model.CustomerPickup)
@@ -32,6 +46,7 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Customer.Name)
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Customer.Address),
@@ -39,16 +54,63 @@
                 @Html.DisplayFor(modelItem => item.Customer.State)
                 @Html.DisplayFor(modelItem => item.Customer.ZipCode)
             </td>
+
+            @Html.HiddenFor(modelItem => item.Pickup.Completed)
+            @if (item.Pickup.Charged == true)
+            {
+                <td>CHARGED</td>
+            }
+            else if(item.Pickup.Completed == true)
+            {
+                <td>DONE, not yet charged</td>
+            }
+            else
+            {
+                <td></td>
+            }
+
+
             <td>
-                @Html.DisplayFor(modelItem => item.Pickup.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pickup.Completed)
+                @using (Html.BeginForm("MarkPickups", "Employee", new { id = item.Pickup.Id }, FormMethod.Post))
+                {
+                    @Html.HiddenFor(modelItem => item.Pickup.Id)
+                    @Html.HiddenFor(model => model.DayChosen)
+                    if (item.Pickup.Completed == false)
+                    {
+                        <input type="submit" value="Mark as completed" />
+                    }
+                    else if (item.Pickup.Charged == true)
+                    {
+
+                    }
+                    else
+                    {
+                        <input type="submit" value="Mark as incomplete" />
+                    }
+                }
             </td>
         </tr>
 
     }
 </table>
+@if (Model.CustomerPickup.Count == 0)
+{
+    <h4>
+        No pickups scheduled.
+    </h4>
+}
+
+@using (Html.BeginForm("ChargePickups", "Employee", new { id = Model.EmployeeId }))
+{
+    @Html.HiddenFor(Model => Model.DayChosen)
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Charge all newly completed pickups" class="btn btn-default" />
+    </div>
+</div>
+}
+
+
 
 
 

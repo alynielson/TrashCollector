@@ -24,6 +24,8 @@ namespace TrashCollectorProject.Models
 
         public bool IsOneTime { get; set; }
 
+        public bool Charged { get; set; }
+
 
     }
 }

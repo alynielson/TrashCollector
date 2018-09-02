@@ -14,18 +14,20 @@ namespace TrashCollectorProject.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
             CustomerPickupViewModel viewModel = new CustomerPickupViewModel();
+            viewModel.EmployeeId = id;
             DateTime dateChosen = ConvertDateChosen(dayChosen);
             DateTime endOfDayChosen = dateChosen.AddDays(1);
             var futurePickups = db.Pickups.Where(p => p.EmployeeId == id && p.Date >= dateChosen && p.Date < endOfDayChosen).ToList();
             var pickupsWithCustomers = futurePickups.Join(db.Customers, p => p.CustomerId, c => c.Id, (p,c) => new { p,c});
             var pickupsConverted = pickupsWithCustomers.Select(a => new CustomerPickup { Pickup = a.p, Customer = a.c}).ToList();
             viewModel.CustomerPickup = pickupsConverted;
+            viewModel.DateViewing = dateChosen;
             return View(viewModel);
         }
 
         private DateTime ConvertDateChosen(string dateChosen)
         {
-            if (dateChosen == "Today")
+            if (dateChosen == "Today" || dateChosen == "")
             {
                 return DateTime.Now.Date;
             }
@@ -40,7 +42,50 @@ namespace TrashCollectorProject.Controllers
                 return dateToCheck;
             }
         }
+        [HttpPost]
+        public ActionResult MarkPickups(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var pickupInDB = db.Pickups.Find(id);
+            if (pickupInDB.Completed == true)
+            {
+                pickupInDB.Completed = false;
+            }
+            else
+            {
+                pickupInDB.Completed = true;
+            }
+            db.SaveChanges();
+            string dayChosen = pickupInDB.Date.DayOfWeek.ToString();
+            return RedirectToAction("Index", "Employee", new { id = pickupInDB.EmployeeId, dayChosen });
+        }
 
+        [HttpPost]
+        public ActionResult ChargePickups(int id, string dayChosen)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            DateTime dateChosen = ConvertDateChosen(dayChosen);
+            DateTime endOfDayChosen = dateChosen.AddDays(1);
+            var pickupsToCharge = db.Pickups.Where(p => p.EmployeeId == id && p.Date >= dateChosen && p.Date < endOfDayChosen && p.Completed == true && p.Charged == false).ToList();
+            foreach (Pickup pickup in pickupsToCharge)
+            {
+                var pickupToCharge = db.Pickups.Find(pickup.Id);
+                pickupToCharge.Charged = true;
+                db.SaveChanges();
+            }
+            var pickupsWithCustomers = pickupsToCharge.Join(db.Customers, p => p.CustomerId, c => c.Id, (p, c) => new { p, c });
+            var customersToCharge = pickupsWithCustomers.Select(a => a.c.Id).ToList();
+            foreach (int custId in customersToCharge)
+            {
+                var customerToCharge = db.Customers.Find(custId);
+                customerToCharge.MoneyOwed += 2.5;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Employee", new { id, dayChosen });
+        }
+
+
+        
         // GET: Employee/Details/5
         public ActionResult Details(int id)
         {
