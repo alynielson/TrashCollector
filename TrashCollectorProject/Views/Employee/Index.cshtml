@@ -1,12 +1,18 @@
-﻿@model List<TrashCollectorProject.Models.CustomerPickupViewModel>
+﻿@model TrashCollectorProject.Models.CustomerPickupViewModel
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Employee Home</h2>
+<hr />
+<div class="control-label col-md-2">View your pickups for:</div>
+@using (Html.BeginForm())
+{
+    @Html.DropDownListFor(model => model.DayChosen,new SelectList(Enum.GetValues(typeof(DayOfWeek))), "Today", new { @class = "btn btn-default dropdown-toggle" })
+    <input type="submit" value="Filter" />
+}
+<hr />
 <table class="table">
-    <h4>Your pickups</h4>
-    <hr />
     <tr>
         <th>
             Name
@@ -15,10 +21,13 @@
             Address
         </th>
         <th>
+            Date
+        </th>
+        <th>
             Completed?
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.CustomerPickup)
     {
         <tr>
             <td>
@@ -29,6 +38,9 @@
                 @Html.DisplayFor(modelItem => item.Customer.City),
                 @Html.DisplayFor(modelItem => item.Customer.State)
                 @Html.DisplayFor(modelItem => item.Customer.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pickup.Date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pickup.Completed)

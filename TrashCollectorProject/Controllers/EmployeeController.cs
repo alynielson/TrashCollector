@@ -10,15 +10,35 @@ namespace TrashCollectorProject.Controllers
     public class EmployeeController : Controller
     {
         // GET: Employee
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, string dayChosen = "Today")
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            DateTime today = DateTime.Now.Date;
-            DateTime tomorrow = DateTime.Now.Date.AddDays(1);
-            var pickupsToday = db.Pickups.Where(p => p.EmployeeId == id && p.Date >= today && p.Date <= tomorrow).ToList();
-            var anon = pickupsToday.Join(db.Customers, p => p.CustomerId, c => c.Id, (p,c) => new { p,c});
-            var pleaseWork = anon.Select(a => new CustomerPickupViewModel { Pickup = a.p, Customer = a.c}).ToList();
-            return View(pleaseWork);
+            CustomerPickupViewModel viewModel = new CustomerPickupViewModel();
+            DateTime dateChosen = ConvertDateChosen(dayChosen);
+            DateTime endOfDayChosen = dateChosen.AddDays(1);
+            var futurePickups = db.Pickups.Where(p => p.EmployeeId == id && p.Date >= dateChosen && p.Date < endOfDayChosen).ToList();
+            var pickupsWithCustomers = futurePickups.Join(db.Customers, p => p.CustomerId, c => c.Id, (p,c) => new { p,c});
+            var pickupsConverted = pickupsWithCustomers.Select(a => new CustomerPickup { Pickup = a.p, Customer = a.c}).ToList();
+            viewModel.CustomerPickup = pickupsConverted;
+            return View(viewModel);
+        }
+
+        private DateTime ConvertDateChosen(string dateChosen)
+        {
+            if (dateChosen == "Today")
+            {
+                return DateTime.Now.Date;
+            }
+            else
+            {
+                DayOfWeek dayChosen = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), dateChosen, true);
+                DateTime dateToCheck = DateTime.Now.Date;
+                while (dayChosen != dateToCheck.DayOfWeek)
+                {
+                    dateToCheck = dateToCheck.AddDays(1);
+                }
+                return dateToCheck;
+            }
         }
 
         // GET: Employee/Details/5
