@@ -247,6 +247,10 @@
     <Compile Include="Migrations\201809031438310_pickupPrice.Designer.cs">
       <DependentUpon>201809031438310_pickupPrice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809031506101_PaidBoolForPickup.cs" />
+    <Compile Include="Migrations\201809031506101_PaidBoolForPickup.Designer.cs">
+      <DependentUpon>201809031506101_PaidBoolForPickup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -418,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809031438310_pickupPrice.resx">
       <DependentUpon>201809031438310_pickupPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809031506101_PaidBoolForPickup.resx">
+      <DependentUpon>201809031506101_PaidBoolForPickup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

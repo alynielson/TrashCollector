@@ -21,6 +21,7 @@ namespace TrashCollectorProject.Models
         public DateTime DateViewing { get; set; }
         public int EmployeeId { get; set; }
         public double CurrentMonthCharges { get; set; }
+        public double OutstandingBalance { get; set; }
        
     }
 }

@@ -102,7 +102,28 @@ namespace TrashCollectorProject.Controllers
             customer.DateScheduledThrough = pickupDate;
             db.SaveChanges();
         }
+        public ActionResult ViewCharges(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            CustomerPickupViewModel viewModel = new CustomerPickupViewModel();
+            var unpaidPickups = db.Pickups.Where(p => p.CustomerId == id && p.Charged == true && p.Paid == false);
+            var pickupsWithCustomers = unpaidPickups.Join(db.Customers, p => p.CustomerId, c => c.Id, (p, c) => new { p, c });
+            var pickupsConverted = pickupsWithCustomers.Select(a => new CustomerPickup { Pickup = a.p, Customer = a.c }).ToList();
 
+            viewModel.CustomerPickup = pickupsConverted;
+            DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var currentMonthPickups = unpaidPickups.Where(p => p.Date >= firstDayOfMonth).ToList();
+            if (currentMonthPickups.Count > 0)
+            {
+                viewModel.CurrentMonthCharges = currentMonthPickups.Sum(p => p.Price);
+            }
+            else
+            {
+                viewModel.CurrentMonthCharges = 0;
+            }
+            viewModel.OutstandingBalance = db.Customers.Find(id).MoneyOwed - viewModel.CurrentMonthCharges;
+            return View(viewModel);
+        }
         // GET: Customer/Edit/5
         public ActionResult Edit(int id)
         {
