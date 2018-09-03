@@ -11,17 +11,49 @@
     <dl class="dl-horizontal">
         @foreach (var item in Model.CustomerPickup)
         {@Html.HiddenFor(ModelItem => item.Pickup.Date)
+            
             if (item.Pickup.Date.Month == DateTime.Now.Month)
+            {
             <dt>
                 @Html.DisplayFor(ModelItem => item.Pickup.Date)
             </dt>
 
             <dd>
+               @Html.DisplayFor(ModelItem => item.Pickup.Price)
                
             </dd>
+            }
         }
+        <dt>
+            Balance as of today:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CurrentMonthCharges)
+        </dd>
+    </dl>
+    <h4>Previous outstanding charges</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.CustomerPickup)
+        {@Html.HiddenFor(ModelItem => item.Pickup.Date)
 
+        if (item.Pickup.Date.Month != DateTime.Now.Month)
+        {
+            <dt>
+                @Html.DisplayFor(ModelItem => item.Pickup.Date)
+            </dt>
 
+            <dd>
+                @Html.DisplayFor(ModelItem => item.Pickup.Price)
+
+            </dd>
+        }
+    }
+        <dt>
+            Total currently owed:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OutstandingBalance)
+        </dd>
     </dl>
 </div>
 <p>

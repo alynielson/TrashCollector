@@ -20,6 +20,7 @@ namespace TrashCollectorProject.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateViewing { get; set; }
         public int EmployeeId { get; set; }
+        public double CurrentMonthCharges { get; set; }
        
     }
 }
