@@ -1,0 +1,31 @@
+﻿@model TrashCollectorProject.Models.CustomerPickupViewModel
+@{
+    ViewBag.Title = "Charges";
+}
+
+<h2>View Charges</h2>
+
+<div>
+    <h4>This month - current balance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.CustomerPickup)
+        {@Html.HiddenFor(ModelItem => item.Pickup.Date)
+            if (item.Pickup.Date.Month == DateTime.Now.Month)
+            <dt>
+                @Html.DisplayFor(ModelItem => item.Pickup.Date)
+            </dt>
+
+            <dd>
+               
+            </dd>
+        }
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditHero") |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

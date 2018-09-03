@@ -67,10 +67,12 @@ namespace TrashCollectorProject.Controllers
             DateTime dateChosen = ConvertDateChosen(dayChosen);
             DateTime endOfDayChosen = dateChosen.AddDays(1);
             var pickupsToCharge = db.Pickups.Where(p => p.EmployeeId == id && p.Date >= dateChosen && p.Date < endOfDayChosen && p.Completed == true && p.Charged == false).ToList();
+            double pickupPrice = 2.5;
             foreach (Pickup pickup in pickupsToCharge)
             {
                 var pickupToCharge = db.Pickups.Find(pickup.Id);
                 pickupToCharge.Charged = true;
+                pickupToCharge.Price = pickupPrice;
                 db.SaveChanges();
             }
             var pickupsWithCustomers = pickupsToCharge.Join(db.Customers, p => p.CustomerId, c => c.Id, (p, c) => new { p, c });
@@ -78,7 +80,7 @@ namespace TrashCollectorProject.Controllers
             foreach (int custId in customersToCharge)
             {
                 var customerToCharge = db.Customers.Find(custId);
-                customerToCharge.MoneyOwed += 2.5;
+                customerToCharge.MoneyOwed += pickupPrice;
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "Employee", new { id, dayChosen });

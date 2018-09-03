@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201809022335504_AddChargedParameter.Designer.cs">
       <DependentUpon>201809022335504_AddChargedParameter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809031438310_pickupPrice.cs" />
+    <Compile Include="Migrations\201809031438310_pickupPrice.Designer.cs">
+      <DependentUpon>201809031438310_pickupPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -363,6 +367,7 @@
     <Content Include="Views\Employee\Create.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Customer\SuspendPickups.cshtml" />
+    <Content Include="Views\Customer\ViewCharges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -410,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809022335504_AddChargedParameter.resx">
       <DependentUpon>201809022335504_AddChargedParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809031438310_pickupPrice.resx">
+      <DependentUpon>201809031438310_pickupPrice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

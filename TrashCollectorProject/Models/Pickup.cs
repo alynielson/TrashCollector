@@ -26,6 +26,6 @@ namespace TrashCollectorProject.Models
 
         public bool Charged { get; set; }
 
-
+        public double Price { get; set; }
     }
 }
