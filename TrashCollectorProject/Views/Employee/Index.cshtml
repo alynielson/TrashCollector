@@ -29,9 +29,6 @@
 <table class="table">
     <tr>
         <th>
-            Name
-        </th>
-        <th>
             Address
         </th>
         <th>
@@ -44,10 +41,6 @@
     @foreach (var item in Model.CustomerPickup)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.Name)
-
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Customer.Address),
                 @Html.DisplayFor(modelItem => item.Customer.City),
@@ -88,6 +81,9 @@
                         <input type="submit" value="Mark as incomplete" />
                     }
                 }
+            </td>
+            <td>
+                @Html.ActionLink("View Details", "Details", "Employee", new { id = item.Pickup.Id}, null)
             </td>
         </tr>
 

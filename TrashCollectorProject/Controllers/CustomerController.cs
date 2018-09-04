@@ -18,6 +18,13 @@ namespace TrashCollectorProject.Controllers
             return View(customer);
         }
 
+        public ActionResult SendToIndex(string id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var customer = db.Customers.SingleOrDefault(u => u.ApplicationUserId == id);
+            return RedirectToAction("Index", "Customer", new { id = customer.Id });
+        }
+
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {

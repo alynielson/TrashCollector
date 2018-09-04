@@ -1,0 +1,13 @@
+﻿@model TrashCollectorProject.Models.CustomerPickupViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Customer Details</h2>
+
+
+<div>
+    @Html.HiddenFor(model => model.EmployeeId)
+    @Html.ActionLink("Back to Main Page", "Index", "Employee", new { id = Model.EmployeeId, dayChosen = Model.DayChosen }, null)
+</div>
+

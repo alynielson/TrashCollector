@@ -174,13 +174,7 @@ namespace TrashCollectorProject.Controllers
 
       
 
-        private void CreateNewEmployee(ApplicationUser user)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Employee employee = new Employee() { ApplicationUserId = user.Id };
-            db.Employees.Add(employee);
-            db.SaveChanges();
-        }
+       
 
         //
         // GET: /Account/ConfirmEmail

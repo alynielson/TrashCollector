@@ -91,7 +91,13 @@ namespace TrashCollectorProject.Controllers
         // GET: Employee/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            CustomerPickupViewModel viewModel = new CustomerPickupViewModel();
+            var customerPickup = db.Pickups.Where(p => id == p.Id).Join(db.Customers, p => p.CustomerId, c => c.Id, (p, c) => new { p, c }).Select(a => new CustomerPickup { Pickup = a.p, Customer = a.c }).ToList();
+            viewModel.CustomerPickup = customerPickup;
+            viewModel.EmployeeId = viewModel.CustomerPickup[0].Pickup.EmployeeId;
+            viewModel.DayChosen = viewModel.CustomerPickup[0].Pickup.Date.DayOfWeek.ToString();
+            return View(viewModel);
         }
 
         // GET: Employee/Create

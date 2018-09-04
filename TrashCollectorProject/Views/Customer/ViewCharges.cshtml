@@ -19,7 +19,7 @@
             </dt>
 
             <dd>
-               @Html.DisplayFor(ModelItem => item.Pickup.Price)
+               $@Html.DisplayFor(ModelItem => item.Pickup.Price)
                
             </dd>
             }
@@ -28,10 +28,11 @@
             Balance as of today:
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CurrentMonthCharges)
+            $@Html.DisplayFor(model => model.CurrentMonthCharges)
         </dd>
     </dl>
     <h4>Previous outstanding charges</h4>
+    <hr />
     <dl class="dl-horizontal">
         @foreach (var item in Model.CustomerPickup)
         {@Html.HiddenFor(ModelItem => item.Pickup.Date)
@@ -43,16 +44,16 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(ModelItem => item.Pickup.Price)
+                $@Html.DisplayFor(ModelItem => item.Pickup.Price)
 
             </dd>
         }
     }
         <dt>
-            Total currently owed:
+            Total currently owed (not including this month):
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OutstandingBalance)
+            $@Html.DisplayFor(model => model.OutstandingBalance)
         </dd>
     </dl>
 </div>
