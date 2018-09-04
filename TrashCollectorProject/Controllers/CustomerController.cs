@@ -15,6 +15,7 @@ namespace TrashCollectorProject.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var customer = db.Customers.Find(id);
+            
             return View(customer);
         }
 
@@ -87,7 +88,7 @@ namespace TrashCollectorProject.Controllers
             db.SaveChanges();
         }
 
-        private void ScheduleNormalPickups(Customer customer, ApplicationDbContext db)
+        public void ScheduleNormalPickups(Customer customer, ApplicationDbContext db)
         {
             DateTime pickupDate;
             if (customer.DateScheduledThrough == null)
@@ -102,9 +103,12 @@ namespace TrashCollectorProject.Controllers
             int pickupsScheduled = 0;
             while (pickupsScheduled < pickupsToSchedule)
             {
-                CreateNewPickup(customer, db, pickupDate);
-                pickupDate = pickupDate.AddDays(7);
-                pickupsScheduled++;
+                if (pickupDate <= customer.CustomStartDate || pickupDate >= customer.CustomEndDate || customer.CustomStartDate == null)
+                {
+                    CreateNewPickup(customer, db, pickupDate);
+                    pickupDate = pickupDate.AddDays(7);
+                    pickupsScheduled++;
+                }
             }
             customer.DateScheduledThrough = pickupDate;
             db.SaveChanges();

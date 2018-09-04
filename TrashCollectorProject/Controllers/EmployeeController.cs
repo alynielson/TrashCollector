@@ -15,6 +15,7 @@ namespace TrashCollectorProject.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             CustomerPickupViewModel viewModel = new CustomerPickupViewModel();
             viewModel.EmployeeId = id;
+            SchedulePickupsIfNotScheduled();
             DateTime dateChosen = ConvertDateChosen(dayChosen);
             DateTime endOfDayChosen = dateChosen.AddDays(1);
             var futurePickups = db.Pickups.Where(p => p.EmployeeId == id && p.Date >= dateChosen && p.Date < endOfDayChosen).ToList();
@@ -23,6 +24,19 @@ namespace TrashCollectorProject.Controllers
             viewModel.CustomerPickup = pickupsConverted;
             viewModel.DateViewing = dateChosen;
             return View(viewModel);
+        }
+        private void SchedulePickupsIfNotScheduled()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var customers = db.Customers.ToList();
+            foreach (Customer customer in customers)
+            {
+                if (customer.DateScheduledThrough < DateTime.Now.Date)
+                {
+                    CustomerController controller = new CustomerController();
+                    controller.ScheduleNormalPickups(customer, db);
+                }
+            }
         }
 
         private DateTime ConvertDateChosen(string dateChosen)
