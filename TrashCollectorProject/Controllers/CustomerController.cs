@@ -58,6 +58,7 @@ namespace TrashCollectorProject.Controllers
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 ScheduleNormalPickups(customer,db);
+                GeocodeAddress(customer, db);
                 var newCustomer = db.Customers.Single(a => a.ApplicationUserId == id);
                 return RedirectToAction("Index", "Customer", new {id = newCustomer.Id});
             }
@@ -65,6 +66,14 @@ namespace TrashCollectorProject.Controllers
             {
                 return View();
             }
+        }
+
+        private void GeocodeAddress(Customer customer, ApplicationDbContext db)
+        {
+            string address = customer.Address;
+            string city = customer.City;
+            string state = customer.State;
+            Geocoder.RunGeocoder(address, city, state);
         }
 
         private DateTime FindFirstDayToSchedule(Customer customer, DateTime dayToSchedule)
