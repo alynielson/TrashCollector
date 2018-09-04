@@ -67,7 +67,7 @@ namespace TrashCollectorProject.Models
 
     public class Geocoder
     {
-        private static string GetApiKey()
+        public static string GetApiKey()
         {
             return File.ReadAllText("C:\\Users\\niels\\Documents\\Projects\\TrashCollectorProject\\TrashCollectorProject\\ApiKeys.txt");
         }
