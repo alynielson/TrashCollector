@@ -1,12 +1,14 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+   
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -26,3 +28,62 @@ textarea {
 btn btn-default dropdown-toggle {
     max-width: 272px;
 }
+
+.navbar-inverse {
+    background-color: white;
+}
+
+
+
+.navbar {
+    min-height: 80px;
+}
+
+.navbar-brand {
+    padding: 0 15px;
+    height: 80px;
+    line-height: 80px;
+    
+}
+
+.navbar-toggle {
+    margin-top: 23px;
+    padding: 9px 10px !important;
+    background-color: #9d9d9d;
+    border: none;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        /* (80px - line-height of 27px) / 2 = 26.5px */
+        padding-top: 26.5px;
+        padding-bottom: 26.5px;
+        line-height: 27px;
+    }
+}
+
+.body-content {
+    padding-top: 30px;
+    
+}
+
+.navbar-brand {
+    font-size: 50px;
+    font-stretch: expanded;
+    font-weight: 600;
+    letter-spacing:-4px;
+}
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: rebeccapurple;
+}
+
+
+.navbar-inverse .navbar-brand {
+    color: rebeccapurple;
+}
+.navbar-inverse .navbar-brand:hover {
+   background-color: rebeccapurple;
+   color: white;
+}
+
+

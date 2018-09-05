@@ -118,11 +118,16 @@ namespace TrashCollectorProject.Controllers
                 if (pickupDate <= customer.CustomStartDate || pickupDate >= customer.CustomEndDate || customer.CustomStartDate == null)
                 {
                     CreateNewPickup(customer, db, pickupDate);
+                    customer.DateScheduledThrough = pickupDate;
                     pickupDate = pickupDate.AddDays(7);
                     pickupsScheduled++;
                 }
+                else
+                {
+                    pickupDate = pickupDate.AddDays(7);
+                }
             }
-            customer.DateScheduledThrough = pickupDate;
+           
             db.SaveChanges();
         }
         public ActionResult ViewCharges(int id)
@@ -132,7 +137,7 @@ namespace TrashCollectorProject.Controllers
             var unpaidPickups = db.Pickups.Where(p => p.CustomerId == id && p.Charged == true && p.Paid == false);
             var pickupsWithCustomers = unpaidPickups.Join(db.Customers, p => p.CustomerId, c => c.Id, (p, c) => new { p, c });
             var pickupsConverted = pickupsWithCustomers.Select(a => new CustomerPickup { Pickup = a.p, Customer = a.c }).ToList();
-
+            viewModel.CustomerId = id;
             viewModel.CustomerPickup = pickupsConverted;
             DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var currentMonthPickups = unpaidPickups.Where(p => p.Date >= firstDayOfMonth).ToList();
@@ -237,7 +242,11 @@ namespace TrashCollectorProject.Controllers
                 {
                     db.Pickups.Remove(pickup);
                 }
-                customerInDB.DateScheduledThrough = customerInDB.CustomEndDate;
+                if (customerInDB.DateScheduledThrough < customerInDB.CustomEndDate)
+                {
+                    customerInDB.DateScheduledThrough = customerInDB.CustomEndDate;
+                }
+                
             }
             db.SaveChanges();
             return RedirectToAction("Index", "Customer", new { id = customer.Id });

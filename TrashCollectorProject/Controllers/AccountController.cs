@@ -396,7 +396,7 @@ namespace TrashCollectorProject.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -453,7 +453,7 @@ namespace TrashCollectorProject.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         private ActionResult RedirectToLocal(ApplicationUser user, ApplicationDbContext db)

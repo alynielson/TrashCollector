@@ -22,6 +22,8 @@ namespace TrashCollectorProject.Models
         public int EmployeeId { get; set; }
         public double CurrentMonthCharges { get; set; }
         public double OutstandingBalance { get; set; }
+
+        public int CustomerId { get; set; }
        
     }
 }
