@@ -71,7 +71,7 @@ namespace TrashCollectorProject.Models
         {
             return File.ReadAllText("C:\\Users\\niels\\Documents\\Projects\\TrashCollectorProject\\TrashCollectorProject\\ApiKeys.txt");
         }
-        public static decimal[] RunGeocoder(string address, string city, string state)
+        public static string[] RunGeocoder(string address, string city, string state)
         {
             address = address.Trim().Replace(" ", "+");
             city = city.Trim().Replace(" ", "+");
@@ -84,8 +84,8 @@ namespace TrashCollectorProject.Models
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 response = request.GetResponse();
-                decimal custLat = 43.0362012m;
-                decimal custLong = -87.98582829999999m;
+                string custLat = "43.0362012";
+                string custLong = "-87.98582829999999";
                 if (response != null)
                 {
                     string responseString = null;
@@ -96,12 +96,12 @@ namespace TrashCollectorProject.Models
                     
                     if (geoResponse.status == "OK")
                     {
-                        custLat = geoResponse.results[0].geometry.location.lat;
-                        custLong = geoResponse.results[0].geometry.location.lng;                
+                        custLat = geoResponse.results[0].geometry.location.lat.ToString();
+                        custLong = geoResponse.results[0].geometry.location.lng.ToString();                
                     }
-                    return new decimal[] { custLat, custLong };  
+                    return new string[] { custLat, custLong };  
                 }
-                return new decimal[] { custLat, custLong };
+                return new string[] { custLat, custLong };
             }
             catch
             {

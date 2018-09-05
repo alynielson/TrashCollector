@@ -73,7 +73,7 @@ namespace TrashCollectorProject.Controllers
             string address = customer.Address;
             string city = customer.City;
             string state = customer.State;
-            decimal[] coordinates = Geocoder.RunGeocoder(address, city, state);
+            string[] coordinates = Geocoder.RunGeocoder(address, city, state);
             customer.Latitude = coordinates[0];
             customer.Longitude = coordinates[1];
             db.SaveChanges();

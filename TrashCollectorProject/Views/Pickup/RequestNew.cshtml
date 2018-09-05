@@ -34,7 +34,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Main Page", "Index", "Customer")
+    @Html.ActionLink("Back to Main Page", "Index", "Customer", new { id = Model.CustomerId }, null)
 </div>
 
 @section Scripts {

@@ -30,9 +30,9 @@ namespace TrashCollectorProject.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateScheduledThrough { get; set; }
 
-        public Decimal Latitude { get; set; }
+        public string Latitude { get; set; }
 
-        public Decimal Longitude { get; set; }
+        public string Longitude { get; set; }
 
 
     }

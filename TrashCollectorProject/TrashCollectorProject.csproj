@@ -255,6 +255,10 @@
     <Compile Include="Migrations\201809041704501_LatLongOnCustomer.Designer.cs">
       <DependentUpon>201809041704501_LatLongOnCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809051310457_latLongToString.cs" />
+    <Compile Include="Migrations\201809051310457_latLongToString.Designer.cs">
+      <DependentUpon>201809051310457_latLongToString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -437,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809041704501_LatLongOnCustomer.resx">
       <DependentUpon>201809041704501_LatLongOnCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051310457_latLongToString.resx">
+      <DependentUpon>201809051310457_latLongToString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
