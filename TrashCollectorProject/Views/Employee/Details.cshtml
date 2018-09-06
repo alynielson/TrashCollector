@@ -25,11 +25,11 @@
         <table>
             
             <tr>
-                <td>Name:</td>
+                <td><label>Name: </label></td>
                 <td>@Html.DisplayFor(model => model.CustomerPickup[0].Customer.Name)</td>
             </tr>
             <tr>
-                <td class="control-label">Address:</td>
+                <td><label>Address: </label></td>
                 <td>@Html.DisplayFor(model => model.CustomerPickup[0].Customer.Address), @Html.DisplayFor(model => model.CustomerPickup[0].Customer.City), @Html.DisplayFor(model => model.CustomerPickup[0].Customer.State) @Html.DisplayFor(model => model.CustomerPickup[0].Customer.ZipCode)</td>
             </tr>
             

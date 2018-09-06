@@ -12,10 +12,10 @@
     <h4>Leaving town? Let us know when and we won't drop by (or charge you).</h4>
     <div class="form-horizontal">
         <div class="form-group">
-            <label class="control-label col-md-2">
+            <label class="col-md-2">
                 Stop pickups on:
             </label>
-            <div class="col-md-10">
+            <div class="col-md-offset-2">
                 @Html.EditorFor(model => model.CustomStartDate, new { htmlAttributes = new { @class = "form-control", @id = "customdatepicker" } })
                 @Html.ValidationMessageFor(model => model.CustomStartDate, "", new { @class = "text-danger" })
             </div>
@@ -24,10 +24,10 @@
 
 
         <div class="form-group">
-            <label class="control-label col-md-2">
+            <label class="col-md-2">
                 Restart pickups on:
             </label>
-            <div class="col-md-10">
+            <div class="col-md-offset-2">
 
                 @Html.EditorFor(model => model.CustomEndDate, new { htmlAttributes = new { @class = "form-control", @id = "customdatepicker2" } })
                 @Html.ValidationMessageFor(model => model.CustomEndDate, "", new { @class = "text-danger" })

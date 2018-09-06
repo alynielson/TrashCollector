@@ -86,4 +86,42 @@ btn btn-default dropdown-toggle {
    color: white;
 }
 
+.custom-button {
+    height: 100px;
+    margin: 10px 10px 10px 10px;
+    line-height: 85px;
+    font-weight: 500;
+}
 
+.custom-button:hover {
+    background-color: rebeccapurple;
+    color: white;
+}
+
+.btn-color-1 {
+    background-color: aquamarine;
+}
+
+.btn-color-2 {
+    background-color: lightpink;
+}
+
+.btn-color-3 {
+    background-color: lightgreen;
+}
+
+.btn-color-4 {
+    background-color: lightskyblue;
+}
+
+.custom-dropdown {
+    background-color: white;
+}
+
+.alert-warning {
+    text-align: center;
+}
+
+.alert-success {
+    text-align: center;
+}

@@ -3,17 +3,24 @@
     ViewBag.Title = "Home";
 }
 
-<h2>Home</h2>
 
 <div>
-    <h4>What would you like to do?</h4>
-    <hr />
 
-    @Html.ActionLink("View or change weekly pickup day", "ChangePickupDay", "Customer", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })
-    @Html.ActionLink("Request an extra one-time pickup", "RequestNew", "Pickup", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })
-    @Html.ActionLink("Temporarily suspend pickups", "SuspendPickups", "Customer", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })
-    @Html.ActionLink("View this month's charges to-date", "ViewCharges", "Customer", new { id = Model.Id }, new { @class = "btn btn-default btn-block" })
-    <button class="btn btn-default btn-block">View all details</button>
+    <div class="row">
+        <div class="col-md-6"> @Html.ActionLink("View or change weekly pickup day", "ChangePickupDay", "Customer", new { id = Model.Id }, new { @class = "custom-button btn-color-1 btn btn-default btn-block" })</div>
+        <div class="col-md-offset-6">@Html.ActionLink("Request an extra one-time pickup", "RequestNew", "Pickup", new { id = Model.Id }, new { @class = "custom-button btn-color-2 btn btn-default btn-block" })</div>
+        
+    </div>
+    <div class="row">
+        <h2 class="col-md-offset-4">What would you like to do?</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">@Html.ActionLink("Temporarily suspend pickups", "SuspendPickups", "Customer", new { id = Model.Id }, new { @class = "custom-button btn-color-3 btn btn-default btn-block" })</div>
+        <div class="col-md-offset-6">@Html.ActionLink("View this month's charges to-date", "ViewCharges", "Customer", new { id = Model.Id }, new { @class = "custom-button btn-color-4 btn btn-default btn-block" })</div>
+       
+        
+    </div>
 
 </div>
 <p>

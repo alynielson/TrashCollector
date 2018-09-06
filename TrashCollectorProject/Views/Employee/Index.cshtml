@@ -6,22 +6,24 @@
 <h2>Employee Home</h2>
 <h4>View all your scheduled pickups for any day in the next week.</h4>
 <hr />
-<div class="row">
-    <div class="col-md-8">
-        <div class="control-label">View your pickups for:</div>
+<div class="form-horizontal">
+    <div class="form-group">
+
+        <label class="col-md-2">View your pickups for:</label>
         @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
-        {
-            @Html.DropDownListFor(model => model.DayChosen, new SelectList(Enum.GetValues(typeof(DayOfWeek))), "Today", new { @class = "btn btn-default dropdown-toggle" })
-            <input type="submit" value="Filter" />
+        {<div class="col-md-6">
+                @Html.DropDownListFor(model => model.DayChosen, new SelectList(Enum.GetValues(typeof(DayOfWeek))), "Today", new { @class = "btn btn-default dropdown-toggle" })
+                <input type="submit" value="Filter" />
+            </div>
         }
-
+        <label class="col-md-4">
+            Date Viewing:
+            @Html.DisplayFor(model => model.DateViewing)
+        </label>
     </div>
 
 
-    <div class="col-md-4">
-        Date Viewing:
-        @Html.DisplayFor(model => model.DateViewing)
-    </div>
+   
 
 </div>
 
@@ -51,11 +53,11 @@
             @Html.HiddenFor(modelItem => item.Pickup.Completed)
             @if (item.Pickup.Charged == true)
             {
-                <td>CHARGED</td>
+                <td class="alert-success">CHARGED</td>
             }
             else if(item.Pickup.Completed == true)
             {
-                <td>DONE, not yet charged</td>
+                <td class="alert-warning">DONE, not yet charged</td>
             }
             else
             {
