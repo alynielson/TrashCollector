@@ -125,3 +125,7 @@ btn btn-default dropdown-toggle {
 .alert-success {
     text-align: center;
 }
+
+.alert-info {
+   text-align: center;
+}
